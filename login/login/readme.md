@@ -7,7 +7,7 @@ npm install ejs
 
 # base de datos
 
-CREATE DATABASE bd_usuarios;
+CREATE DATABASE IF NO EXIST bd_usuarios;
 USE bd_usuarios;
 
 CREATE TABLE usuarios (
