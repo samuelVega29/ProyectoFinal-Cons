@@ -21,7 +21,7 @@ CREATE TABLE usuarios (
 	rol ENUM('Administrador', 'Docente', 'Estudiante'),
 	genero ENUM('Masculino', 'Femenino', 'Otro'),
 	contrasenna VARCHAR(255) NOT NULL,
-	fecha_registro TIMESTAMP DEFAULT DEFAULT CURRENT_TIMESTAMP
+	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 
 # ejs: 
