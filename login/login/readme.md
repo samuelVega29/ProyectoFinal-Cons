@@ -1,4 +1,5 @@
 Integrantes:
+- Sebastian Ruiz
 
 # instalaciones:
 
