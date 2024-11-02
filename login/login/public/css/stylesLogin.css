@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box; /* Incluye bordes y padding dentro del ancho/alto total */
+    margin: 0; /* Elimina márgenes predeterminados */
+    padding: 0; /* Elimina padding predeterminado */
+}
+
+/* Estilos generales del cuerpo de la página */
+body {
+    font-family: 'Arial', sans-serif; /* Fuente principal */
+    background-color: #f0f4f8; /* Color de fondo suave para mejorar la lectura */
+    color: #343a40; /* Color del texto, un tono oscuro */
+    line-height: 1.6; /* Espaciado entre líneas para mejorar legibilidad */
+}
+
+/* Estilo del contenedor principal */
+.container {
+    max-width: 700px; /* Ancho máximo del contenedor */
+    margin: 50px auto; /* Centrado automático con márgenes */
+    padding: 40px; /* Espaciado interno para un diseño más limpio */
+    background-color: white; /* Fondo blanco dentro del contenedor */
+    border-radius: 10px; /* Bordes suavemente redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra para dar efecto de profundidad */
+}
+
+/* Estilos del título principal (h2) */
+h2 {
+    text-align: center; /* Centra el texto del título */
+    color: #007bff; /* Color azul brillante para destacar */
+    margin-bottom: 25px; /* Espacio debajo del título */
+    font-size: 2em; /* Tamaño de letra mayor para el título */
+}
+
+/* Estilos para el formulario */
+form {
+    display: flex; /* Utiliza flexbox para la disposición */
+    flex-direction: column; /* Coloca los elementos uno debajo de otro */
+    gap: 20px; /* Espaciado uniforme entre los elementos del formulario */
+}
+
+/* Estilo para los campos de entrada */
+input[type="text"],
+input[type="password"] {
+    padding: 15px; /* Espaciado interno mayor para facilitar la interacción */
+    border: 2px solid #007bff; /* Borde azul para resaltar */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1.2em; /* Fuente ligeramente más grande para mejor lectura */
+    background-color: white; /* Fondo blanco para mantener consistencia */
+    transition: border-color 0.3s; /* Transiciones suaves en bordes */
+}
+
+/* Efecto focus para los campos de entrada */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #0056b3; /* Cambia el color del borde al hacer foco */
+    outline: none; /* Elimina el contorno por defecto */
+}
+
+/* Estilos generales para el botón de envío */
+button {
+    padding: 15px; /* Espaciado interno cómodo para el botón */
+    background-color: #007bff; /* Color azul del fondo */
+    color: white; /* Color blanco para el texto */
+    border: none; /* Sin borde para un estilo más limpio */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1.2em; /* Fuente más grande para mayor visibilidad */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves para cambios de fondo y movimiento */
+}
+
+/* Efecto hover para el botón de envío */
+button:hover {
+    background-color: #0056b3; /* Cambia el color de fondo cuando el mouse pasa sobre el botón */
+    transform: translateY(-2px); /* Desplaza el botón hacia arriba para dar sensación de clic */
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* Ancho del contenedor adaptado para pantallas móviles */
+    }
+}
+
+
+/* Estilos para la tabla */
+table {
+    width: 100%; /* Ancho completo */
+    border-collapse: collapse; /* Elimina el espacio entre celdas */
+    margin-top: 20px; /* Espacio superior para separación */
+}
+
+th, td {
+    padding: 10px; /* Espaciado interno para celdas */
+    border: 1px solid #dee2e6; /* Borde gris claro */
+    text-align: left; /* Alinear texto a la izquierda */
+}
+
+th {
+    background-color: #007bff; /* Color de fondo azul para el encabezado */
+    color: white; /* Color del texto blanco */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo alternativo para filas pares */
+}
