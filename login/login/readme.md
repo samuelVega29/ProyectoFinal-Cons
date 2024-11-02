@@ -10,7 +10,7 @@ npm install ejs
 
 # base de datos
 
-CREATE DATABASE IF NO EXIST bd_usuarios;
+CREATE DATABASE IF NOT EXISTS bd_usuarios;
 USE bd_usuarios;
 
 CREATE TABLE usuarios (
@@ -20,6 +20,7 @@ CREATE TABLE usuarios (
 	apellido_usuario VARCHAR(50) NOT NULL,
 	rol ENUM('Administrador', 'Docente', 'Estudiante'),
 	genero ENUM('Masculino', 'Femenino', 'Otro'),
+	email VARCHAR(255) UNIQUE NOT NULL,
 	contrasenna VARCHAR(255) NOT NULL,
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )

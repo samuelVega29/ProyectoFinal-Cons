@@ -6,6 +6,7 @@ const fs = require('fs'); // Módulo para manipulación de archivos del sistema
 const mysql = require('mysql2'); // Cliente para conectarse a MySQL
 const bcrypt = require('bcrypt'); // Módulo para encriptar contraseñas
 const path = require('path'); // Módulo para manejar rutas de archivos
+const connection = require("./db");
 
 // Crear una aplicación Express
 const app = express();
@@ -25,13 +26,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }); // Inicializar multer con la configuración de almacenamiento
 
 // Servir archivos estáticos (HTML, CSS) desde la carpeta 'public'
-app.use(express.static('public'));
+app.use(express.static('csv'));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'csv', 'indexCsv.html')); // Asegúrate de que 'index.html' esté en la carpeta 'public'
+});
 
 // Función para verificar si el número de identificación ya existe en la base de datos
-const checkIfIdExists = (identification) => {
+const checkIfIdExists = (identificacion) => {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM people WHERE identification = ?'; // Consulta SQL para buscar la identificación
-        connection.query(query, [identification], (err, results) => {
+        const query = 'SELECT * FROM usuarios WHERE identificacion = ?'; // Consulta SQL para buscar la identificación
+        connection.query(query, [identificacion], (err, results) => {
             if (err) return reject(err); // Rechazar la promesa si hay un error
             resolve(results.length > 0); // Retornar true si hay resultados (la identificación existe)
         });
@@ -39,10 +43,10 @@ const checkIfIdExists = (identification) => {
 };
 
 // Función para insertar una persona en la base de datos
-const insertPerson = (name, identification, hashedPassword, email, role) => {
+const insertPerson = (identificacion, nombre_usuario, apellido_usuario, rol, genero, email, hashedPassword) => {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO people (name, identification, password, email, role) VALUES (?, ?, ?, ?, ?)'; // Consulta SQL para insertar una persona
-        connection.query(query, [name, identification, hashedPassword, email.toLowerCase(), role], (err) => {
+        const query = 'INSERT INTO usuarios (identificacion, nombre_usuario, apellido_usuario, rol, genero, email, contrasenna) VALUES (?, ?, ?, ?, ?, ?, ?)'; // Consulta SQL para insertar una persona
+        connection.query(query, [identificacion, nombre_usuario, apellido_usuario, rol, genero, email.toLowerCase(), hashedPassword], (err) => {
             if (err) return reject(err); // Rechazar la promesa si hay un error
             resolve(); // Resolver la promesa si la inserción es exitosa
         });
@@ -56,8 +60,8 @@ const isValidEmail = (email) => {
 };
 
 // Función para validar el rol de un usuario
-const isValidRole = (role) => {
-    return role === 'admin' || role === 'user_regular'; // Retorna true si el rol es válido
+const isValidRole = (rol) => {
+    return rol === 'Administrador' || rol === 'Docente' || rol === 'Estudiante'; // Retorna true si el rol es válido
 };
 
 // Ruta para procesar el archivo CSV subido
@@ -78,18 +82,20 @@ app.post('/upload', upload.single('csvfile'), (req, res) => {
 
             // Iterar sobre cada fila del CSV
             for (const row of results) {
-                const { name, identification, password, email, role } = row; // Desestructurar los campos de la fila
+                const { identificacion, nombre_usuario, apellido_usuario, rol, genero, email, contrasenna } = row; // Desestructurar los campos de la fila
                 const missingFields = []; // Array para almacenar campos faltantes
 
                 // Validar campos requeridos
-                if (!name) missingFields.push('name'); // Comprobar si falta el nombre
-                if (!identification) missingFields.push('identification'); // Comprobar si falta la identificación
-                if (!password) missingFields.push('password'); // Comprobar si falta la contraseña
-                if (!email) missingFields.push('email'); // Comprobar si falta el correo
-                if (!role) missingFields.push('role'); // Comprobar si falta el rol
+                if (!identificacion) missingFields.push('identificacion'); // Comprobar si falta el nombre
+                if (!nombre_usuario) missingFields.push('nombre_usuario'); // Comprobar si falta la identificación
+                if (!apellido_usuario) missingFields.push('apellido_usuario'); // Comprobar si falta la contraseña
+                if (!rol) missingFields.push('rol'); // Comprobar si falta el correo
+                if (!genero) missingFields.push('genero'); // Comprobar si falta el rol
+                if (!email) missingFields.push('email');
+                if (!contrasenna) missingFields.push('contrasenna');
 
                 if (missingFields.length > 0) { // Si hay campos faltantes
-                    console.error(`Faltan campos requeridos en la fila: {\n  name: '${name}',\n  identification: '${identification}',\n  password: '${password}',\n  email: '${email}'\n}`); // Log de error
+                    console.error(`Faltan campos requeridos en la fila: {\n  Identification: '${identificacion}', \n  Nombre: '${nombre_usuario}', \n Apellido: '${apellido_usuario}', \n Rol: '${rol}', \n Genero: '${genero}', \n  Email: '${email}', \n  Contraseña: '${contrasenna}'\n}`); // Log de error
                     console.log(`Campos faltantes:\n  ${missingFields.join('\n  ')}`); // Mostrar los campos faltantes
                     invalidFields++; // Incrementar el contador de campos vacíos
                     continue; // Saltar a la siguiente fila
@@ -100,7 +106,7 @@ app.post('/upload', upload.single('csvfile'), (req, res) => {
                     const lowerCaseEmail = email.toLowerCase(); // Transformar el correo a minúsculas
 
                     // Verificar si la identificación ya existe
-                    const idExists = await checkIfIdExists(identification); // Llamar a la función para verificar la existencia del ID
+                    const idExists = await checkIfIdExists(identificacion); // Llamar a la función para verificar la existencia del ID
 
                     // Validar formato de correo
                     if (!isValidEmail(lowerCaseEmail)) { // Comprobar si el correo es válido
@@ -109,7 +115,7 @@ app.post('/upload', upload.single('csvfile'), (req, res) => {
                     }
 
                     // Validar rol
-                    if (!isValidRole(role)) { // Comprobar si el rol es válido
+                    if (!isValidRole(rol)) { // Comprobar si el rol es válido
                         invalidRoles++; // Incrementar el conteo de roles inválidos
                         continue; // Saltar a la siguiente fila
                     }
@@ -117,10 +123,10 @@ app.post('/upload', upload.single('csvfile'), (req, res) => {
                     // Si el identificador no existe, se procede a insertar
                     if (!idExists) { // Si el ID no existe en la base de datos
                         // Hashear la contraseña con bcrypt
-                        const hashedPassword = await bcrypt.hash(password, 10); // Encriptar la contraseña
+                        const hashedPassword = await bcrypt.hash(contrasenna, 10); // Encriptar la contraseña
 
                         // Insertar la persona en la base de datos con correo en minúsculas
-                        await insertPerson(name, identification, hashedPassword, lowerCaseEmail, role); // Llamar a la función para insertar
+                        await insertPerson(identificacion, nombre_usuario, apellido_usuario, rol, genero, lowerCaseEmail,hashedPassword); // Llamar a la función para insertar
                         processedCount++; // Incrementar el conteo de personas procesadas
                     } else {
                         duplicateCount++; // Incrementar el conteo de duplicados
