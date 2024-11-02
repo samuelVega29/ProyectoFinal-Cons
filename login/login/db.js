@@ -5,7 +5,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '', // Cambia esto si tienes una contraseña
-    database: 'csv_database', // Asegúrate de que tu base de datos se llama 'csv_database'
+    database: 'bd_usuarios', // Asegúrate de que tu base de datos se llama 'csv_database'
 });
 
 db.connect((err) => {
