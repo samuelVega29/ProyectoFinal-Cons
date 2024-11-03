@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD App</title>
-  <link rel="stylesheet" href="/login/login/public/css/stylesSearch.css">
+  <link rel="stylesheet" href="/css/stylesSearch.css">
 </head>
 <body>
   <div class="container">
@@ -13,12 +13,35 @@
     <!-- Formulario para agregar personas -->
     <form id="personForm">
       <input type="hidden" id="personId">
-      <input type="text" id="userName" placeholder="User Name" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <input type="text" id="personIdentification" placeholder="Identification" required>
-      <input type="text" id="personName" placeholder="Name" required>
-      <input type="number" id="personAge" placeholder="Age" required>
-      <input type="text" id="personAddress" placeholder="Address" required>
+      <div id="container-select">
+        <select id="select-rol">
+          
+          <option type="Administrador">Administrador</option>
+          <option type="Estudiante">Estudiante</option>
+          <option type="Docente">Docente</option>
+          
+        </select>
+        
+      </div>
+      
+      <div id="container-select">
+        <select id="select-genero">
+          
+          <option type="Masculino">Masculino</option>
+          <option type="Femenino">Femenino</option>
+          <option type="Otro">Otro</option>
+          
+        </select>
+        
+      </div>
+
+
+      <input type="text" id="email" placeholder="Email" required>
+      <input type="text" id="personIdentification" placeholder="Identificacion" required>
+      <input type="text" id="password" placeholder="password" required>
+      <input type="text" id="nombre" placeholder="Nombre" required>
+      <input type="text" id="apellido" placeholder="Apellido" required>
+
       <button type="submit" id="submitBtn">Add Person</button>
       <button type="button" id="viewPeopleBtn" onclick="window.location.href='people.html'">View Registered People</button>
     </form>
@@ -32,9 +55,13 @@
         <tr>
           <th>ID</th>
           <th>Identification</th>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Address</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>rol</th>
+          <th>genero</th>
+          <th>email</th>
+          <th>contraseña</th>
+          <th>fecha</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -50,9 +77,10 @@
       <form id="modalForm">
         <input type="hidden" id="modalPersonId">
         <input type="text" id="modalPersonIdentification" placeholder="Identification" required>
-        <input type="text" id="modalPersonName" placeholder="Name" required>
-        <input type="number" id="modalPersonAge" placeholder="Age" required>
-        <input type="text" id="modalPersonAddress" placeholder="Address" required>
+        <input type="text" id="modalPersonName" placeholder="Nombre" required>
+        <input type="textr" id="modalPersonApellido" placeholder="Apellido" required>
+        <input type="text" id="modalPersonGenero" placeholder="Genero" required>
+        <input type="text" id="modalEmail" placeholder="Email" required>
         <!-- Campo de contraseña opcional -->
         <input type="password" id="modalPassword" placeholder="New Password (optional)">
         <button type="submit" id="modalSubmitBtn">Update Person</button>
@@ -60,6 +88,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="/scripts/scriptPeople.js"></script>
 </body>
 </html>

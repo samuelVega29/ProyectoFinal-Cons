@@ -37,10 +37,13 @@
             row.innerHTML = `
               <td>${person.id}</td>
               <td>${person.identificacion}</td>
-              <td>${person.name}</td>
-              <td>${person.user_name}</td> <!-- Muestra el nombre de usuario -->
-              <td>${person.age}</td>
-              <td>${person.address}</td>
+              <td>${person.nombre_usuario}</td>
+              <td>${person.apellido_usuario}</td>
+              <td>${person.rol }</td>
+              <td>${person.genero }</td>
+              <td>${person.email}</td>
+              <td>${person.contrasenna}</td>
+              <td>${person.fecha_registro}</td>
             `;
             tbody.appendChild(row);
           });

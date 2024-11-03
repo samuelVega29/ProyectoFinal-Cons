@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalPersonIdInput = document.getElementById('modalPersonId');
     const modalPersonIdentificationInput = document.getElementById('modalPersonIdentification');
     const modalPersonNameInput = document.getElementById('modalPersonName');
-    const modalPersonAgeInput = document.getElementById('modalPersonAge');
-    const modalPersonAddressInput = document.getElementById('modalPersonAddress');
+    const modalPersonApellidoInput = document.getElementById('modalPersonApellido');;
+    const modalPersonGeneroInput = document.getElementById('modalPersonGenero');
+    const modalEmail = document.getElementById('modalEmail');
     const modalPasswordInput = document.getElementById('modalPassword'); // Nuevo campo de contraseña opcional
     const modalSubmitBtn = document.getElementById('modalSubmitBtn');
 
@@ -53,9 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <tr>
                 <td>${person.id}</td>
                 <td>${person.identificacion}</td>
-                <td>${person.name}</td>
-                <td>${person.age}</td>
-                <td>${person.address}</td>
+                <td>${person.nombre_usuario}</td>
+                <td>${person.apellido_usuario}</td>
+                <td>${person.rol}</td>
+                <td>${person.genero}</td>
+                <td>${person.email}</td>
+                <td>${person.contrasenna}</td>
+                <td>${person.fecha_registro}</td>
                 <td>
                     <button onclick="openEditModal(${person.id})">Edit</button>
                     <button onclick="deletePerson(${person.id})">Delete</button>
@@ -68,17 +73,18 @@ document.addEventListener('DOMContentLoaded', () => {
     personForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const id = document.getElementById('personId').value;
-        const user_name = document.getElementById('userName').value;
-        const password = document.getElementById('password').value;
         const identificacion = document.getElementById('personIdentification').value;
-        const name = document.getElementById('personName').value;
-        const age = document.getElementById('personAge').value;
-        const address = document.getElementById('personAddress').value;
+        const nombre = document.getElementById('nombre').value;
+        const apellido = document.getElementById('apellido').value;
+        const rol = document.getElementById('select-rol').value;
+        const genero = document.getElementById('select-genero').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
         
         if (id) {
-            updatePerson(id, { user_name, password, identificacion, name, age, address });
+            updatePerson(id, { identificacion,nombre,apellido,rol,genero,email,password});
         } else {
-            addPerson({ user_name, password, identificacion, name, age, address });
+            addPerson({ identificacion,nombre,apellido,rol,genero,email,password});
         }
     });
 
@@ -130,14 +136,15 @@ function updatePerson(id, person) {
 
     // Función para abrir el modal de edición
 window.openEditModal = function(id) {
-    fetch(`/person/${id}`)
+    fetch(`/usuario/${id}`)
         .then(response => response.json())
         .then(person => {
             modalPersonIdInput.value = person.id;
             modalPersonIdentificationInput.value = person.identificacion;
-            modalPersonNameInput.value = person.name;
-            modalPersonAgeInput.value = person.age;
-            modalPersonAddressInput.value = person.address;
+            modalPersonNameInput.value = person.nombre_usuario;
+            modalPersonApellidoInput.value = person.apellido_usuario;
+            modalPersonGeneroInput.value = person.genero;
+            modalEmail.value = person.email;
             editModal.classList.remove('hidden');
         });
 };
@@ -151,12 +158,13 @@ modalForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const id = modalPersonIdInput.value;
     const identificacion = modalPersonIdentificationInput.value;
-    const name = modalPersonNameInput.value;
-    const age = modalPersonAgeInput.value;
-    const address = modalPersonAddressInput.value;
+    const nombre = modalPersonNameInput.value;
+    const apellido = modalPersonApellidoInput.value;
+    const genero = modalPersonGeneroInput.value;
+    const email = modalEmail.value;
     const password = modalPasswordInput.value; // Obtiene la nueva contraseña si fue ingresada
 
-    const personData = { identificacion, name, age, address };
+    const personData = { identificacion, nombre, apellido, genero,email };
     if (password) personData.password = password; // Agrega el campo solo si hay una nueva contraseña
 
     updatePerson(id, personData);
