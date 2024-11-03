@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.length > 0) {
                         data.forEach(person => {
                             const listItem = document.createElement('li');
-                            listItem.textContent = `${person.name} (Identificación: ${person.identificacion})`;
+                            listItem.textContent = `(Nombre: ${person.name}) (Identificación: ${person.identificacion})`;
                             listItem.addEventListener('click', () => displayPersonInfo(person));
                             suggestionsList.appendChild(listItem);
                         });
@@ -54,8 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${person.id}</td>
                 <td>${person.identificacion}</td>
                 <td>${person.name}</td>
-                <td>${person.age}</td>
-                <td>${person.address}</td>
+                <td>${person.apellido}</td>
+                <td>${person.rol}</td>
+                <td>${person.genero}</td>
+                <td>${person.contraseña}</td>
                 <td>
                     <button onclick="openEditModal(${person.id})">Edit</button>
                     <button onclick="deletePerson(${person.id})">Delete</button>
@@ -68,17 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
     personForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const id = document.getElementById('personId').value;
-        const user_name = document.getElementById('userName').value;
-        const password = document.getElementById('password').value;
         const identificacion = document.getElementById('personIdentification').value;
-        const name = document.getElementById('personName').value;
-        const age = document.getElementById('personAge').value;
-        const address = document.getElementById('personAddress').value;
+        const name = document.getElementById('nombre').value;
+        const apellido = document.getElementById('apellido').value;
+        const rol = document.getElementById('select-rol').value;
+        const genero = document.getElementById('select-genero').value;
+        const password = document.getElementById('password').value;
+        
         
         if (id) {
-            updatePerson(id, { user_name, password, identificacion, name, age, address });
+            updatePerson(id, {identificacion, name,apellido,rol,genero,password });
         } else {
-            addPerson({ user_name, password, identificacion, name, age, address });
+            addPerson({identificacion, name,apellido,rol,genero,password });
         }
     });
 
@@ -130,14 +133,14 @@ function updatePerson(id, person) {
 
     // Función para abrir el modal de edición
 window.openEditModal = function(id) {
-    fetch(`/person/${id}`)
+    fetch(`/usuarios/${id}`)
         .then(response => response.json())
         .then(person => {
             modalPersonIdInput.value = person.id;
             modalPersonIdentificationInput.value = person.identificacion;
-            modalPersonNameInput.value = person.name;
-            modalPersonAgeInput.value = person.age;
-            modalPersonAddressInput.value = person.address;
+            modalPersonNameInput.value = person.nombre;
+            modalPersonAgeInput.value = person.apellido;
+            modalPersonAddressInput.value = person.genero.value;
             editModal.classList.remove('hidden');
         });
 };
@@ -152,11 +155,11 @@ modalForm.addEventListener('submit', (event) => {
     const id = modalPersonIdInput.value;
     const identificacion = modalPersonIdentificationInput.value;
     const name = modalPersonNameInput.value;
-    const age = modalPersonAgeInput.value;
-    const address = modalPersonAddressInput.value;
+    const apellido = modalPersonAgeInput.value;
+    const genero = modalPersonAddressInput.value;
     const password = modalPasswordInput.value; // Obtiene la nueva contraseña si fue ingresada
 
-    const personData = { identificacion, name, age, address };
+    const personData = { identificacion, name, apellido, genero };
     if (password) personData.password = password; // Agrega el campo solo si hay una nueva contraseña
 
     updatePerson(id, personData);

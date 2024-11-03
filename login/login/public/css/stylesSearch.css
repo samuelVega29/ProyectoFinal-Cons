@@ -165,3 +165,26 @@ button:active {
 #personForm {
     margin-bottom: 20px; /* Margen inferior del formulario */
 }
+
+#container-select{
+    display: flex;
+    justify-content: center;
+}
+
+#select-rol{
+    width: 80%;
+    height: 30px;
+    margin-bottom: 20px; 
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+}
+
+#select-genero {
+    width: 80%;
+    height: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px; 
+    border-radius: 12px; /* Bordes redondeados */
+
+}
+

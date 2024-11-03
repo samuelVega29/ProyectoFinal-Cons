@@ -3,13 +3,10 @@ const express = require('express'); // Framework para crear el servidor web
 const multer = require('multer'); // Middleware para manejar la subida de archivos
 const csv = require('csv-parser'); // Módulo para analizar archivos CSV
 const fs = require('fs'); // Módulo para manipulación de archivos del sistema
-const mysql = require('mysql2'); // Cliente para conectarse a MySQL
 const bcrypt = require('bcrypt'); // Módulo para encriptar contraseñas
 const path = require('path'); // Módulo para manejar rutas de archivos
 
 // Crear una aplicación Express
-const app = express();
-const port = 3000; // Definir el puerto en el que se ejecutará el servidor
 
 // Configurar multer para almacenar archivos CSV
 const storage = multer.diskStorage({
@@ -145,7 +142,3 @@ app.post('/upload', upload.single('csvfile'), (req, res) => {
         });
 });
 
-// Iniciar el servidor en el puerto definido
-app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`); // Log de inicio del servidor
-});

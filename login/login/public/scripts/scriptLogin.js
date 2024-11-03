@@ -6,11 +6,7 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../db'); // Importar la conexión a la base de datos
-
-// Inicializar la aplicación Express
-const app = express();
-const PORT = process.env.PORT || 3000;
+const db = require('../../db'); // Importar la conexión a la base de datos
 
 // Configurar el motor de vista y las vistas
 app.set('view engine', 'ejs');
@@ -44,7 +40,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+    db.query('SELECT * FROM usuarios WHERE nombre_usuario = ?', [username], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error en la consulta');
@@ -69,7 +65,7 @@ app.post('/login', (req, res) => {
 // Ruta para el dashboard
 app.get('/dashboard', isAuthenticated, (req, res) => {
     // Aquí asumimos que ya tienes el ID del usuario en la sesión
-    db.query('SELECT * FROM users WHERE id = ?', [req.session.userId], (err, results) => {
+    db.query('SELECT * FROM usuarios WHERE id = ?', [req.session.userId], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error en la consulta');
@@ -97,7 +93,4 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+
