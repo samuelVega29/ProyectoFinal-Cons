@@ -165,3 +165,20 @@ button:active {
 #personForm {
     margin-bottom: 20px; /* Margen inferior del formulario */
 }
+
+#personForm div{
+    margin-bottom: 20px;
+}
+
+select{
+    width: 83%;
+    height: 43px;
+    border: #ced4da solid 1px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+#modalForm div{
+    margin-bottom: 20px;
+    text-align: center;
+}

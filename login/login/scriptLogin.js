@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../db'); // Importar la conexión a la base de datos
+const db = require('./db'); // Importar la conexión a la base de datos
 
 // Inicializar la aplicación Express
 const app = express();
@@ -43,40 +43,42 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+    const { identificacion, password } = req.body;
+    db.query('SELECT * FROM usuarios WHERE identificacion = ?', [identificacion], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error en la consulta');
         }
         if (results.length === 0) {
-            return res.redirect('/login?error=Usuario o contraseña incorrectos'); // Redirigir con mensaje de error
+            return res.redirect('/login?error=Identificación o contraseña incorrectos');
         }
 
         const user = results[0];
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-            if (err) throw err;
-            if (!isMatch) {
-                return res.redirect('/login?error=Usuario o contraseña incorrectos'); // Redirigir con mensaje de error
-            }
-            req.session.userId = user.id;
-            req.session.role = user.role;
-            return res.redirect('/dashboard'); // Redirigir al dashboard
-        });
+        // Comparar contraseñas directamente (sin bcrypt)
+        if (password !== user.password) {
+            console.log("Contraseña incorrecta");
+            return res.redirect('/login?error=Usuario o contraseña incorrectos');
+        }
+
+        req.session.userId = user.id;
+        req.session.role = user.role;
+        console.log("Inicio de sesión exitoso");
+        return res.redirect('/managePeople/indexPeople.html');
     });
 });
+
 
 // Ruta para el dashboard
 app.get('/dashboard', isAuthenticated, (req, res) => {
     // Aquí asumimos que ya tienes el ID del usuario en la sesión
-    db.query('SELECT * FROM users WHERE id = ?', [req.session.userId], (err, results) => {
+    db.query('SELECT * FROM usuarios WHERE id = ?', [req.session.userId], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error en la consulta');
         }
 
         const loggedInUser = results[0]; // Este es el usuario autenticado
-        db.query('SELECT * FROM users', (err, allUsers) => {
+        db.query('SELECT * FROM usuarios', (err, allUsers) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send('Error en la consulta');

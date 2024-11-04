@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD App</title>
+  <link rel="stylesheet" href="stylesSearch.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Manage People</h1>
+    
+    <!-- Formulario para agregar personas -->
+    <form id="personForm">
+      <input type="hidden" id="personId">
+      <input type="text" id="identificacion" placeholder="Identificación" required>
+      <input type="text" id="nombre" placeholder="Nombre" required>
+      <input type="text" id="apellido" placeholder="Apellido" required>
+      <div id="container-select-rol">
+        <select name="rol" id="select-rol">
+          <option value="Administrador">Administrador</option>
+          <option value="Docente">Docente</option>
+          <option value="Estudiante">Estudiante</option>
+        </select>
+      </div>
+      <div id="container-select-genero">
+        <select name="genero" id="select-genero">
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="contrasenna" placeholder="Contraseña" required>
+      <button type="submit" id="submitBtn">Add Person</button>
+      <button type="button" id="viewPeopleBtn" onclick="window.location.href='people.html'">View Registered People</button>
+    </form>
+    
+    <!-- Caja de búsqueda -->
+    <input type="text" id="searchInput" placeholder="Buscar por identificación" autocomplete="off">
+    <ul id="suggestions"></ul>
+    
+    <table id="infoTable" class="hidden">
+      <thead>
+        <tr>
+          <th>Identification</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Rol</th>
+          <th>Genero</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Modal para editar persona -->
+  <div id="editModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-button" id="closeModal">&times;</span>
+      <h2>Edit Person</h2>
+      <form id="modalForm">
+        <input type="hidden" id="modalId">
+        <input type="text" id="modalIdentificacion" placeholder="Identificación" required>
+        <input type="text" id="modalNombre" placeholder="Nombre" required>
+        <input type="text" id="modalApellido" placeholder="Apellido" required>
+        <div id="container-select">
+          <select name="rol" id="modal-select-rol">
+            <option value="Administrador">Administrador</option>
+            <option value="Docente">Docente</option>
+            <option value="Estudiante">Estudiante</option>
+          </select>
+        </div>
+        <div id="container-select">
+          <select name="genero" id="modal-select-genero">
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <input type="email" id="modalEmail" placeholder="Email" required>
+        <button type="submit" id="modalSubmitBtn">Update Person</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="scriptPeople.js"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registered People</title>
-  <link rel="stylesheet" href="/login/login/public/css/stylesSearch.css">
+  <link rel="stylesheet" href="stylesSearch.css">
 </head>
 <body>
   <div class="container">
@@ -12,17 +12,17 @@
     <table id="peopleTable">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Identification</th>
-          <th>Name</th>
-          <th>Username</th> <!-- Nueva columna para el nombre de usuario -->
-          <th>Age</th>
-          <th>Address</th>
+          <th>Nombre</th>
+          <th>Apellido</th> <!-- Nueva columna para el nombre de usuario -->
+          <th>Rol</th>
+          <th>Genero</th>
+          <th>Email</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
-    <button onclick="window.location.href='index.html'">Back to Manage People</button>
+    <button onclick="window.location.href='indexPeople.html'">Back to Manage People</button>
   </div>
 
   <script>
@@ -35,12 +35,12 @@
           data.forEach(person => {
             const row = document.createElement('tr');
             row.innerHTML = `
-              <td>${person.id}</td>
               <td>${person.identificacion}</td>
-              <td>${person.name}</td>
-              <td>${person.user_name}</td> <!-- Muestra el nombre de usuario -->
-              <td>${person.age}</td>
-              <td>${person.address}</td>
+              <td>${person.nombre_usuario}</td>
+              <td>${person.apellido_usuario}</td> <!-- Muestra el nombre de usuario -->
+              <td>${person.rol}</td>
+              <td>${person.genero}</td>
+              <td>${person.email}</td>
             `;
             tbody.appendChild(row);
           });
