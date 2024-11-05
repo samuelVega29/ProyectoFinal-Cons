@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registered People</title>
+  <link rel="stylesheet" href="/css/stylesSearch.css">
+</head>
+<body>
+   <!-- Barra de navegación -->
+   <nav>
+    <!-- Logo (puedes cambiar la ruta a tu logo) -->
+    <div class="nav-logo">
+      <img src="/images/logo.png" alt="Logo del sitio">
+    </div>
+
+    <!-- Opciones del menú -->
+    <ul class="nav-menu">
+      <li><a href="/register">Registrar Usuario</a></li>
+      <li><a href="/dashboard">Visualizar usuarios</a></li>
+      <li><a href="/upload">Subir Archivo</a></li>
+
+      <!-- Opción para cerrar sesión -->
+      <li class="logout"><a href="/logout">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <h1>Registered People</h1>
+    <table id="peopleTable">
+      <thead>
+        <tr>
+          <th>Identification</th>
+          <th>Nombre</th>
+          <th>Apellido</th> <!-- Nueva columna para el nombre de usuario -->
+          <th>Rol</th>
+          <th>Genero</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button onclick="window.location.href='indexPeople.html'">Back to Manage People</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/people')  // Llama a la nueva ruta en el servidor
+        .then(response => response.json())
+        .then(data => {
+          const tbody = document.getElementById('peopleTable').querySelector('tbody');
+          tbody.innerHTML = '';
+          data.forEach(person => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${person.identificacion}</td>
+              <td>${person.nombre_usuario}</td>
+              <td>${person.apellido_usuario}</td> <!-- Muestra el nombre de usuario -->
+              <td>${person.rol}</td>
+              <td>${person.genero}</td>
+              <td>${person.email}</td>
+            `;
+            tbody.appendChild(row);
+          });
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/stylesLogin.css">
+</head>
+
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <!-- Logo (puedes cambiar la ruta a tu logo) -->
+        <div class="nav-logo">
+            <img src="/images/logo.png" alt="Logo del sitio">
+        </div>
+
+        <!-- Opciones del menú -->
+        <ul class="nav-menu">
+            <li><a href="/register">CRUD Usuario</a></li>
+            <li><a href="/manage-users">Visualizar administrativos</a></li>
+            <li><a href="/upload">Subir Archivo</a></li>
+
+            <!-- Opción para cerrar sesión -->
+            <li class="logout"><a href="/logout">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido del dashboard -->
+    <div class="container">
+        <h2>Bienvenido Administrativo <%= user.name %>
+        </h2>
+
+        <h3>Usuarios Registrados</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Identificación</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Rol</th>
+                    <th>Género</th>
+                    <th>Email</th>
+                    <th>Contraseña</th>
+                    <th>Fecha Registro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user=> { %>
+                    <tr>
+                        <td>
+                            <%= user.id %>
+                        </td>
+                        <td>
+                            <%= user.identificacion %>
+                        </td>
+                        <td>
+                            <%= user.nombre_usuario %>
+                        </td>
+                        <td>
+                            <%= user.apellido_usuario %>
+                        </td>
+                        <td>
+                            <%= user.rol %>
+                        </td>
+                        <td>
+                            <%= user.genero %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.contrasenna %>
+                        </td>
+                        <td>
+                            <%= user.fecha_registro %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

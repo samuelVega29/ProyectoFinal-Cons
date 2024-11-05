@@ -1,0 +1,254 @@
+/* Estilo general del cuerpo de la página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Establecer la fuente para el texto */
+    background-color: #e9ecef; /* Color de fondo de la página */
+    margin: 0; /* Eliminar márgenes por defecto */
+    padding: 0; /* Eliminar relleno por defecto */
+    color: #343a40; /* Color del texto */
+}
+
+/* Contenedor principal que aloja el contenido */
+.container {
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: 50px auto; /* Margen superior de 50px, centrado horizontalmente */
+    padding: 30px; /* Relleno interno del contenedor */
+    background-color: #fff; /* Color de fondo blanco */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    text-align: center; /* Centrar texto dentro del contenedor */
+}
+
+/* Estilo para el encabezado principal */
+h1 {
+    font-size: 2rem; /* Tamaño de la fuente del encabezado */
+    color: #007bff; /* Color del texto del encabezado */
+    margin-bottom: 20px; /* Margen inferior del encabezado */
+}
+
+/* Estilo para los campos de entrada */
+input {
+    width: 80%; /* Ancho del campo de entrada */
+    padding: 12px; /* Espaciado interno del campo */
+    margin: 0 auto 20px auto; /* Margen superior e inferior */
+    border: 1px solid #ced4da; /* Borde del campo de entrada */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    transition: border-color 0.3s ease-in-out; /* Transición suave para el borde */
+    display: block; /* Mostrar como bloque */
+}
+
+/* Estilo del campo de entrada cuando está en foco */
+input:focus {
+    border-color: #007bff; /* Cambiar color del borde al enfocarse */
+    outline: none; /* Sin contorno al enfocarse */
+}
+
+/* Estilo para listas no ordenadas */
+ul {
+    list-style: none; /* Eliminar puntos de la lista */
+    padding: 0; /* Eliminar relleno */
+    margin: 0; /* Eliminar margen */
+}
+
+/* Estilo para los elementos de la lista */
+ul li {
+    padding: 12px; /* Espaciado interno de cada elemento */
+    margin-bottom: 8px; /* Margen inferior entre elementos */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #ced4da; /* Borde del elemento de la lista */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+}
+
+/* Estilo para los elementos de la lista al pasar el mouse */
+ul li:hover {
+    background-color: #f8f9fa; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilo para tablas */
+table {
+    width: 100%; /* Ancho completo de la tabla */
+    margin-top: 30px; /* Margen superior de la tabla */
+    border-collapse: separate; /* Separar bordes */
+    border-spacing: 0; /* Sin espacio entre bordes */
+}
+
+/* Estilo para las celdas de la tabla */
+table th, table td {
+    padding: 12px; /* Espaciado interno de celdas */
+    text-align: left; /* Alinear texto a la izquierda */
+    border-bottom: 1px solid #ced4da; /* Borde inferior de las celdas */
+}
+
+/* Estilo para el encabezado de la tabla */
+table th {
+    background-color: #007bff; /* Color de fondo del encabezado */
+    color: white; /* Color del texto del encabezado */
+}
+
+/* Estilo para filas de la tabla al pasar el mouse */
+table tr:hover {
+    background-color: #f1f1f1; /* Color de fondo de la fila al pasar el mouse */
+}
+
+/* Clase oculta para elementos que no deben mostrarse */
+.hidden {
+    display: none; /* No mostrar el elemento */
+}
+
+/* Estilo para la ventana modal */
+.modal {
+    position: fixed; /* Posicionamiento fijo */
+    z-index: 999; /* Asegura que esté en la parte superior */
+    left: 0; /* Alinear a la izquierda */
+    top: 0; /* Alinear en la parte superior */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    overflow: auto; /* Permitir desplazamiento */
+    background-color: rgba(0,0,0,0.5); /* Fondo semitransparente */
+}
+
+/* Estilo del contenido de la ventana modal */
+.modal-content {
+    background-color: #fefefe; /* Color de fondo del contenido modal */
+    margin: 15% auto; /* Margen superior e inferior, centrado horizontalmente */
+    padding: 20px; /* Relleno interno del contenido */
+    border: 1px solid #888; /* Borde del contenido */
+    width: 80%; /* Ancho del contenido */
+    max-width: 500px; /* Ancho máximo del contenido */
+    border-radius: 12px; /* Bordes redondeados */
+}
+
+/* Estilo para el botón de cerrar de la modal */
+.close-button {
+    color: #aaa; /* Color del texto del botón de cerrar */
+    float: right; /* Alinear a la derecha */
+    font-size: 28px; /* Tamaño de fuente del botón de cerrar */
+    font-weight: bold; /* Negrita */
+}
+
+/* Estilo para el botón de cerrar al pasar el mouse o al enfocar */
+.close-button:hover,
+.close-button:focus {
+    color: black; /* Cambiar color al pasar el mouse */
+    text-decoration: none; /* Sin subrayado */
+    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+}
+
+/* Estilos generales de los botones */
+button {
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    padding: 12px 20px; /* Espaciado interno del botón */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente del botón */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves para fondo y sombra */
+    outline: none; /* Sin borde de enfoque */
+}
+
+/* Estilo del botón al pasar el mouse */
+button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra al pasar el mouse */
+}
+
+/* Estilo del botón al hacer clic */
+button:active {
+    background-color: #004085; /* Color de fondo al hacer clic */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra al hacer clic */
+    transform: translateY(2px); /* Desplazamiento al hacer clic */
+}
+
+/* Espacio entre el formulario y la caja de búsqueda */
+#personForm {
+    margin-bottom: 20px; /* Margen inferior del formulario */
+}
+
+#personForm div{
+    margin-bottom: 20px;
+}
+
+select{
+    width: 83%;
+    height: 43px;
+    border: #ced4da solid 1px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+#modalForm div{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+nav {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilo para el logo */
+.nav-logo img {
+    height: 40px;
+}
+
+/* Estilos para los links del menú */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin-left: 20px;
+}
+
+.nav-menu li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+}
+
+.nav-menu li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.logout {
+    margin-left: auto;
+    background-color: #e74c3c;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.logout a {
+    color: white;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+}
+
+table th {
+    background-color: #2980b9;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
