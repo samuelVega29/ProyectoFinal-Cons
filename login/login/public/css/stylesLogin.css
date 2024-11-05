@@ -102,3 +102,72 @@ th {
 tr:nth-child(even) {
     background-color: #f2f2f2; /* Color de fondo alternativo para filas pares */
 }
+
+nav {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilo para el logo */
+.nav-logo img {
+    height: 40px;
+}
+
+/* Estilos para los links del menú */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin-left: 20px;
+}
+
+.nav-menu li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+}
+
+.nav-menu li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.logout {
+    margin-left: auto;
+    background-color: #e74c3c;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.logout a {
+    color: white;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+}
+
+table th {
+    background-color: #2980b9;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

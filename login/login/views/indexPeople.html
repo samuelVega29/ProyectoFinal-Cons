@@ -7,6 +7,23 @@
   <link rel="stylesheet" href="/css/stylesSearch.css">
 </head>
 <body>
+   <!-- Barra de navegación -->
+   <nav>
+    <!-- Logo (puedes cambiar la ruta a tu logo) -->
+    <div class="nav-logo">
+        <img src="/images/logo.png" alt="Logo del sitio">
+    </div>
+
+    <!-- Opciones del menú -->
+    <ul class="nav-menu">
+        <li><a href="/register">Registrar Usuario</a></li>
+        <li><a href="/manage-users">Eliminar/Editar Usuarios</a></li>
+        <li><a href="/upload">Subir Archivo</a></li>
+
+        <!-- Opción para cerrar sesión -->
+        <li class="logout"><a href="/logout">Cerrar Sesión</a></li>
+    </ul>
+</nav>
   <div class="container">
     <h1>Manage People</h1>
     
@@ -78,7 +95,7 @@
         <input type="hidden" id="modalPersonId">
         <input type="text" id="modalPersonIdentification" placeholder="Identification" required>
         <input type="text" id="modalPersonName" placeholder="Nombre" required>
-        <input type="textr" id="modalPersonApellido" placeholder="Apellido" required>
+        <input type="text" id="modalPersonApellido" placeholder="Apellido" required>
         <input type="text" id="modalPersonGenero" placeholder="Genero" required>
         <input type="text" id="modalEmail" placeholder="Email" required>
         <!-- Campo de contraseña opcional -->

@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../db'); // Importar la conexión a la base de datos
+const db = require('./db'); // Importar la conexión a la base de datos
 
 // Inicializar la aplicación Express
 const app = express();
@@ -44,7 +44,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+    db.query('SELECT * FROM usuarios WHERE nombre_usuario = ?', [username], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error en la consulta');
@@ -54,7 +54,10 @@ app.post('/login', (req, res) => {
         }
 
         const user = results[0];
-        bcrypt.compare(password, user.password, (err, isMatch) => {
+        console.log('user:', user); // Esto te mostrará el objeto completo que viene de la base de datos
+        console.log('user.password:', user.password); // Verifica si la contraseña está definida
+
+        bcrypt.compare(password, user.contrasenna, (err, isMatch) => {
             if (err) throw err;
             if (!isMatch) {
                 return res.redirect('/login?error=Usuario o contraseña incorrectos'); // Redirigir con mensaje de error
@@ -69,20 +72,20 @@ app.post('/login', (req, res) => {
 // Ruta para el dashboard
 app.get('/dashboard', isAuthenticated, (req, res) => {
     // Aquí asumimos que ya tienes el ID del usuario en la sesión
-    db.query('SELECT * FROM users WHERE id = ?', [req.session.userId], (err, results) => {
+    db.query('SELECT * FROM usuarios WHERE id = ?', [req.session.userId], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error en la consulta');
         }
 
         const loggedInUser = results[0]; // Este es el usuario autenticado
-        db.query('SELECT * FROM users', (err, allUsers) => {
+        db.query('SELECT * FROM usuarios', (err, allUsers) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send('Error en la consulta');
             }
             // Renderiza el dashboard con la información del usuario autenticado y todos los usuarios
-            res.render('dashboard', { user: loggedInUser, users: allUsers }); 
+            res.render('dashboard', { user: loggedInUser, users: allUsers });
         });
     });
 });
@@ -96,6 +99,24 @@ app.get('/logout', (req, res) => {
         res.redirect('/login'); // Redirigir a la página de login después de cerrar sesión
     });
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Ruta para servir indexPeople.html
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'indexPeople.html'));
+});
+
+// Ruta para people.html
+app.get('/manage-users', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'people.html'));
+});
+
+// Ruta para indexCsv.html
+app.get('/upload', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'indexCsv.html'));
+});
+
 
 // Iniciar el servidor
 app.listen(PORT, () => {

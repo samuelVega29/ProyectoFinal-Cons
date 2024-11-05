@@ -32,20 +32,20 @@ app.get('/usuarios', (req, res) => {
 app.post('/add', (req, res) => {
     console.log(req.body)
     // Desestructurar datos del cuerpo de la solicitud
-    const { identificacion, nombre_usuario, apellido_usuario, rol, genero,email, password } = req.body;
+    const { identificacion, nombre, apellido, rol, genero,email, password } = req.body;
 
     // Agregar logs para ver los valores recibidos
     console.log("Datos recibidos:");
     console.log("Identificación:", identificacion);
-    console.log("Nombre de usuario:", nombre_usuario);
-    console.log("Apellido de usuario:", apellido_usuario);
+    console.log("Nombre de usuario:", nombre);
+    console.log("Apellido de usuario:", apellido);
     console.log("Rol:", rol);
     console.log("Género:", genero);
     console.log("Email:", email);
     console.log("Contraseña:", password);
 
     // Verificar si el nombre de usuario ya existe
-    connection.query('SELECT * FROM usuarios WHERE nombre_usuario = ?', [nombre_usuario], async (err, results) => {
+    connection.query('SELECT * FROM usuarios WHERE nombre_usuario = ?', [nombre], async (err, results) => {
         if (err) {
             console.error('Error al verificar el nombre de usuario:', err);
             return res.status(500).json({ message: 'Error en el servidor al verificar el nombre de usuario.' });
@@ -62,7 +62,7 @@ app.post('/add', (req, res) => {
             // Agregar la nueva persona con la contraseña hasheada
             connection.query(
                 'INSERT INTO usuarios (identificacion, nombre_usuario, apellido_usuario, rol, genero, email, contrasenna) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                [identificacion, nombre_usuario, apellido_usuario, rol, genero, email, hashedPassword], // Usa hashedPassword en lugar de password
+                [identificacion, nombre, apellido, rol, genero, email, hashedPassword], // Usa hashedPassword en lugar de password
                 (err, results) => {
                     if (err) {
                         console.error('Error al agregar la persona:', err);
